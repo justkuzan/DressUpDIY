@@ -47,10 +47,7 @@ TagManager:
   - name: Character
     uniqueID: 1719135677
     locked: 0
-  - name: ToolsBack
-    uniqueID: 84949389
-    locked: 0
-  - name: ToolsFront
+  - name: Tools
     uniqueID: 2413504273
     locked: 0
   - name: Hand
