@@ -1893,6 +1893,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1195387945}
   - component: {fileID: 1195387946}
+  - component: {fileID: 1195387947}
   m_Layer: 0
   m_Name: Girl
   m_TagString: Untagged
@@ -1974,6 +1975,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1195387947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195387944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7aa0e77937dbaf4292fa10b7239bbed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterFace
+  lipstick: {fileID: 952160428}
+  blush: {fileID: 1255148892}
+  eyeshadow: {fileID: 1936796097}
+  acneLayer: {fileID: 90191851}
 --- !u!1 &1219682747
 GameObject:
   m_ObjectHideFlags: 0
