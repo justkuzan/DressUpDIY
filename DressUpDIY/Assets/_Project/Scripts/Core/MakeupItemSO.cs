@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewMakeupItem", menuName = "Makeup/Create Item")]
 public class MakeupItemSO : ScriptableObject
 {
     public enum MakeupType { Cream, Blush, Eyeshadow, Lipstick }

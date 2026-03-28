@@ -47,6 +47,9 @@ TagManager:
   - name: Character
     uniqueID: 1719135677
     locked: 0
+  - name: Skin Imperfections
+    uniqueID: 1593091679
+    locked: 0
   - name: Makeup Layers
     uniqueID: 1131733699
     locked: 0

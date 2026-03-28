@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124bd36da0637364e98ab2b0c33094c3, type: 3}
+  m_Name: eyeshadow_03
+  m_EditorClassIdentifier: Assembly-CSharp::MakeupItemSO
+  type: 2
+  toolTipSprite: {fileID: 4128712259640609889, guid: 8d0b0b46aa38b0f48bd2d4cc3241ab2d, type: 3}
+  faceResultSprite: {fileID: 21300000, guid: 9c914bb03396f0d4b91ad2b32e01a096, type: 3}
