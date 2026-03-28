@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c1335dd4ce46c4549a56795077e63869
+guid: 145c2f08b8ad9c44ea1189f685a6f520
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9101278813714116849
-    second: girl_0
+      213: -7973376512685140356
+    second: lipstick_01_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -100,12 +100,12 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: 52
+    textureFormat: 50
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: girl_0
+      name: lipstick_01_0
       rect:
         serializedVersion: 2
-        x: 314
-        y: 259
-        width: 1367
-        height: 3430
+        x: 952
+        y: 3256
+        width: 92
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f0f7354cdc3e4e70800000000000000
-      internalID: 9101278813714116849
+      spriteID: c7695f47e40e85190800000000000000
+      internalID: -7973376512685140356
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4be728d54ea846b4390c882ad4bf7c85
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      girl_0: 9101278813714116849
+      lipstick_01_0: -7973376512685140356
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

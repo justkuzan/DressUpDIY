@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class MakeupItemSO : MonoBehaviour
+public class MakeupItemSO : ScriptableObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public enum MakeupType { Cream, Blush, Eyeshadow, Lipstick }
+    public MakeupType type;
+    public Sprite toolTipSprite;
+    public Sprite faceResultSprite;
 }

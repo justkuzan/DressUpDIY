@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: c1335dd4ce46c4549a56795077e63869
+guid: 9c914bb03396f0d4b91ad2b32e01a096
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9101278813714116849
-    second: girl_0
+      213: -2807799779774319300
+    second: eyeshadow_color_03_0
+  - first:
+      213: -1288349248971252690
+    second: eyeshadow_color_03_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +51,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -98,14 +101,14 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 52
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -126,23 +129,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: girl_0
+      name: eyeshadow_color_03_0
       rect:
         serializedVersion: 2
-        x: 314
-        y: 259
-        width: 1367
-        height: 3430
+        x: 872
+        y: 3410
+        width: 99
+        height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f0f7354cdc3e4e70800000000000000
-      internalID: 9101278813714116849
+      spriteID: c35b1260af0b809d0800000000000000
+      internalID: -2807799779774319300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: eyeshadow_color_03_1
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3410
+        width: 99
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c5d6c1f2dde1ee0800000000000000
+      internalID: -1288349248971252690
       vertices: []
       indices: 
       edges: []
@@ -151,7 +176,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4be728d54ea846b4390c882ad4bf7c85
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      girl_0: 9101278813714116849
+      eyeshadow_color_03_0: -2807799779774319300
+      eyeshadow_color_03_1: -1288349248971252690
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
