@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: eyeshadow_06
   m_EditorClassIdentifier: Assembly-CSharp::MakeupItemSO
   type: 2
-  toolTipSprite: {fileID: -682940920670710923, guid: 998187394bfb10d4cbda5a2b89894c3f, type: 3}
+  spriteIcon: {fileID: 8879923056484331699, guid: 9dece0d52a9b0c645ba4f2aaec4c57ab, type: 3}
   faceResultSprite: {fileID: 21300000, guid: b04bc41188a269d4fb5210efafc2cd4e, type: 3}
+  toolTipSprite: {fileID: -682940920670710923, guid: 998187394bfb10d4cbda5a2b89894c3f, type: 3}

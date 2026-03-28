@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: blush_04
   m_EditorClassIdentifier: Assembly-CSharp::MakeupItemSO
   type: 1
-  toolTipSprite: {fileID: 1872076797965621151, guid: be25e8c8841b9254cb8731420a753806, type: 3}
+  spriteIcon: {fileID: 7313455164188800378, guid: 4f3e87686f79fd548bcfb8df5d5ee3ca, type: 3}
   faceResultSprite: {fileID: 21300000, guid: 43d306aee94ddcd40bb2e811af001e52, type: 3}
+  toolTipSprite: {fileID: 1872076797965621151, guid: be25e8c8841b9254cb8731420a753806, type: 3}

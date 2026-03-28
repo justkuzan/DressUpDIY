@@ -29,4 +29,14 @@ public class CharacterFace : MonoBehaviour
                 break;
         }
     }
+
+    public void CleanAll()
+    {
+        if (acneLayer != null)
+            acneLayer.SetActive(true);
+
+        lipstick.sprite = null;
+        blush.sprite = null;
+        eyeshadow.sprite = null;
+    }
 }

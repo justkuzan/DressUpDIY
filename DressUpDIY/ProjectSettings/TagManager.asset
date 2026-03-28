@@ -53,6 +53,9 @@ TagManager:
   - name: Makeup Layers
     uniqueID: 1131733699
     locked: 0
+  - name: Outfit
+    uniqueID: 2908617939
+    locked: 0
   - name: Tools
     uniqueID: 2413504273
     locked: 0

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: lipstick_04
   m_EditorClassIdentifier: Assembly-CSharp::MakeupItemSO
   type: 3
-  toolTipSprite: {fileID: 0}
+  spriteIcon: {fileID: 3291508729261550910, guid: 08f75f97c2d613d41a9455eaa0472bed, type: 3}
   faceResultSprite: {fileID: 21300000, guid: cda282c3e3f6c5e4eb55291ece91c519, type: 3}
+  toolTipSprite: {fileID: 0}
