@@ -9,6 +9,9 @@ public class HandController : MonoBehaviour
     public enum HandState { Idle, MovingToTool, Dipping, Dragging, Applying, Returning }
     public HandState currentState = HandState.Idle;
 
+    public Vector3 dragOffset = new Vector3(0, 150, 0);
+    private bool isDragging = false;
+
     [Header("References")]
     public Image toolImage;
     public Image toolColorOverlay;
@@ -89,6 +92,29 @@ public class HandController : MonoBehaviour
         {
             currentState = HandState.Dragging;
         });
+    }
+
+    void Update()
+    {
+        Debug.Log(currentState);
+        if (currentState == HandState.Dragging)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                isDragging = true;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                isDragging = false;
+                // Тут мы позже проверим: над лицом мы или нет
+            }
+
+            if (isDragging)
+            {
+                transform.position = Input.mousePosition + dragOffset;
+            }
+        }
 
     }
 }

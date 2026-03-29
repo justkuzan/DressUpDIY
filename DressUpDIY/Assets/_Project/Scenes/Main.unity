@@ -694,7 +694,7 @@ Canvas:
   m_GameObject: {fileID: 256919397}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 10
   m_PixelPerfect: 0
@@ -2874,6 +2874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandController
   currentState: 0
+  dragOffset: {x: 0, y: 150, z: 0}
   toolImage: {fileID: 272016527}
   toolColorOverlay: {fileID: 1555440520}
   staticBookTool: {fileID: 1542059973}
