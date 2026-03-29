@@ -2852,6 +2852,7 @@ RectTransform:
   m_Children:
   - {fileID: 272016526}
   - {fileID: 1976638196}
+  - {fileID: 2134188706}
   m_Father: {fileID: 256919401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2874,8 +2875,14 @@ MonoBehaviour:
   currentState: 0
   toolImage: {fileID: 272016527}
   staticBookTool: {fileID: 1265628251}
+  tipAnchor: {fileID: 2134188706}
   chestPoint: {fileID: 1600371006}
-  moveSpeed: 500
+  flyToToolTime: 0.8
+  flyToColorTime: 0.6
+  shakeDuration: 0.6
+  shakeStrength: 15
+  shakeVibrato: 12
+  flyToChestTime: 1
 --- !u!1 &1277042657
 GameObject:
   m_ObjectHideFlags: 0
@@ -4773,6 +4780,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130157590}
   m_CullTransparentMesh: 1
+--- !u!1 &2134188705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2134188706}
+  m_Layer: 5
+  m_Name: TipAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2134188706
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134188705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1276283547}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 16, y: 209}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2887449110695852726
 PrefabInstance:
   m_ObjectHideFlags: 0

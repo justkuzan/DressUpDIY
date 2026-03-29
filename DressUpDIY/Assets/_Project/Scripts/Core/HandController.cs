@@ -12,10 +12,16 @@ public class HandController : MonoBehaviour
     [Header("References")]
     public Image toolImage;
     public GameObject staticBookTool;
+    public Transform tipAnchor;
     public Transform chestPoint;
 
-    [Header("Settings")]
-    public float moveSpeed = 0.5f;
+    [Header("Animation Settings")]
+    public float flyToToolTime = 0.5f;    // Time to fly to the brush in the book
+    public float flyToColorTime = 0.4f;   // Time to fly from the brush to the color palette
+    public float shakeDuration = 0.6f;    // Duration of the "scrubbing" motion on the powder
+    public float shakeStrength = 15f;     // Shake intensity (how far the hand moves)
+    public int shakeVibrato = 12;         // Shake frequency (vibrations per second)
+    public float flyToChestTime = 0.5f;   // Time to move the hand back to the "idle" chest position
 
     private RectTransform rectTransform;
     private MakeupItemSO currentData;
@@ -43,34 +49,35 @@ public class HandController : MonoBehaviour
 
     public void RunAnimationSequence(Vector3 colorPosition)
     {
+        Vector3 tipOffset = transform.position - tipAnchor.position;
+
         currentState = HandState.MovingToTool;
 
         Sequence s = DOTween.Sequence();
-        s.Append(transform.DOMove(staticBookTool.transform.position, 0.5f).SetEase(Ease.OutQuad));
+        s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
 
         s.AppendCallback(() =>
         {
             staticBookTool.SetActive(false);
             toolImage.enabled = true;
-            Debug.Log("Кисть захвачена!");
         });
 
-        s.Append(transform.DOMove(colorPosition, 0.4f).SetEase(Ease.OutQuad));
+        s.Append(transform.DOMove(colorPosition + tipOffset, flyToColorTime).SetEase(Ease.OutQuad));
 
-        s.Append(transform.DOShakePosition(0.6f, strength: 15f, vibrato: 12));
+        s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato));
 
         s.AppendCallback(() =>
         {
             toolImage.sprite = currentData.toolTipSprite;
             toolImage.SetNativeSize();
+            currentState = HandState.Dipping;
         });
 
-        s.Append(transform.DOMove(chestPoint.position, 0.5f).SetEase(Ease.OutBack));
+        s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutBack));
 
         s.OnComplete(() =>
         {
             currentState = HandState.Dragging;
-            Debug.Log("Управление передано игроку!");
         });
 
     }
