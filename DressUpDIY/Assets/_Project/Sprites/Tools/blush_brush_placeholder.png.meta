@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5293720e07130a44099ba1a7181ddf89
+guid: f7a20fe0d9700bf4db19f6a6b39eea81
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5539361100355821462
-    second: hand dummy_2_0
+      213: 5257022604423979892
+    second: blush_brush_placeholder_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -98,14 +98,14 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 51
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hand dummy_2_0
+      name: blush_brush_placeholder_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 548
-        height: 738
+        width: 229
+        height: 494
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69f535d6293cfdc40800000000000000
-      internalID: 5539361100355821462
+      spriteID: 473e3e0b432b4f840800000000000000
+      internalID: 5257022604423979892
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      hand dummy_2_0: 5539361100355821462
+      blush_brush_placeholder_0: 5257022604423979892
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

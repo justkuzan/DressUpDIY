@@ -15,4 +15,5 @@ MonoBehaviour:
   type: 2
   spriteIcon: {fileID: 8290768584984152016, guid: 308ab0e7f7acc8548b5ab7ce4a396c23, type: 3}
   faceResultSprite: {fileID: 21300000, guid: abf70723e1a0107408acdd83df381de9, type: 3}
+  cleanToolSprite: {fileID: 4665549093041750926, guid: 71fd71d687694ac4ca92ccd532c16c16, type: 3}
   toolTipSprite: {fileID: -2400251997296997149, guid: ccc2c469f81c1884fa1afba8159a8e47, type: 3}

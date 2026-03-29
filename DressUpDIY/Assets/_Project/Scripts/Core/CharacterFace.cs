@@ -32,8 +32,7 @@ public class CharacterFace : MonoBehaviour
 
     public void CleanAll()
     {
-        if (acneLayer != null)
-            acneLayer.SetActive(true);
+        if (acneLayer != null) acneLayer.SetActive(true);
 
         lipstick.sprite = null;
         blush.sprite = null;

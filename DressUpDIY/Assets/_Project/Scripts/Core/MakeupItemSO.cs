@@ -7,5 +7,6 @@ public class MakeupItemSO : ScriptableObject
     public MakeupType type;
     public Sprite spriteIcon;
     public Sprite faceResultSprite;
+    public Sprite cleanToolSprite;
     public Sprite toolTipSprite;
 }

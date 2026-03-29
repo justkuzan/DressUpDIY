@@ -18,6 +18,7 @@ public class MakeupButton : MonoBehaviour
 
     public void HandleClick()
     {
-
+        if (itemData == null) return;
+        HandController.Instance.StartSequence(itemData, transform.position);
     }
 }
