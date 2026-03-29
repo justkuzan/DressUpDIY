@@ -11,6 +11,7 @@ public class HandController : MonoBehaviour
 
     [Header("References")]
     public Image toolImage;
+    public Image toolColorOverlay;
     public GameObject staticBookTool;
     public Transform tipAnchor;
     public Transform chestPoint;
@@ -54,6 +55,7 @@ public class HandController : MonoBehaviour
         currentState = HandState.MovingToTool;
 
         Sequence s = DOTween.Sequence();
+
         s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
 
         s.AppendCallback(() =>
@@ -64,7 +66,15 @@ public class HandController : MonoBehaviour
 
         s.Append(transform.DOMove(colorPosition + tipOffset, flyToColorTime).SetEase(Ease.OutQuad));
 
-        s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato));
+        s.AppendCallback(() =>
+        {
+            toolColorOverlay.sprite = currentData.toolTipSprite;
+            toolColorOverlay.SetNativeSize();
+            toolColorOverlay.color = new Color(1, 1, 1, 0);
+        });
+
+        s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato, randomness: 0, snapping: false, fadeOut: true));
+        s.Join(toolColorOverlay.DOFade(1f, shakeDuration).SetEase(Ease.Linear));
 
         s.AppendCallback(() =>
         {
@@ -73,7 +83,7 @@ public class HandController : MonoBehaviour
             currentState = HandState.Dipping;
         });
 
-        s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutBack));
+        s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
 
         s.OnComplete(() =>
         {
