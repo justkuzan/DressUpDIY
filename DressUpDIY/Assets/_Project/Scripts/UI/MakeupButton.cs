@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class MakeupButton : MonoBehaviour
 {
     public MakeupItemSO itemData;
+    public Transform customMidPoint;
     private Image myImage;
 
 
@@ -22,7 +23,7 @@ public class MakeupButton : MonoBehaviour
     {
         if (itemData != null)
         {
-            HandController.Instance.StartSequence(itemData, gameObject);
+            HandController.Instance.StartSequence(itemData, gameObject, customMidPoint);
         }
     }
 }

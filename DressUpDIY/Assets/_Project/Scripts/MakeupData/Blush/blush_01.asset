@@ -17,3 +17,4 @@ MonoBehaviour:
   faceResultSprite: {fileID: 21300000, guid: 4b4e87ea71d5ca746b2572aa06078bdf, type: 3}
   cleanToolSprite: {fileID: 8384921574167642751, guid: aad966b68ee7076448ee2a01d58a0fbf, type: 3}
   toolTipSprite: {fileID: 1142967857921273945, guid: 6e80c192bac8c0345ba1c652c4a61a7f, type: 3}
+  skipDipping: 0

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124bd36da0637364e98ab2b0c33094c3, type: 3}
+  m_Name: cream_01
+  m_EditorClassIdentifier: Assembly-CSharp::MakeupItemSO
+  type: 0
+  spriteIcon: {fileID: -3356302069181093370, guid: c8953f43d1840dd4eb93e266f092405d, type: 3}
+  faceResultSprite: {fileID: 0}
+  cleanToolSprite: {fileID: -3356302069181093370, guid: c8953f43d1840dd4eb93e266f092405d, type: 3}
+  toolTipSprite: {fileID: -3356302069181093370, guid: c8953f43d1840dd4eb93e266f092405d, type: 3}
+  skipDipping: 1

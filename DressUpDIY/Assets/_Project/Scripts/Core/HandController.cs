@@ -70,25 +70,33 @@ public class HandController : MonoBehaviour
     }
 
 
-    public void StartSequence(MakeupItemSO data, GameObject clickedButton)
+    public void StartSequence(MakeupItemSO data, GameObject clickedButton, Transform customPoint)
     {
         if (staticBookTool != null) staticBookTool.SetActive(true);
 
         DOTween.KillAll();
         currentData = data;
 
-        if (staticBookTool == null) staticBookTool = clickedButton;
+        if (data.type == MakeupItemSO.MakeupType.Cream || staticBookTool == null)
+        {
+            staticBookTool = clickedButton;
+        }
 
         toolImage.sprite = data.cleanToolSprite;
-        toolImage.SetNativeSize();
+
+        RectTransform clickedRect = clickedButton.GetComponent<RectTransform>();
+        if (clickedRect != null) toolImage.rectTransform.sizeDelta = clickedRect.sizeDelta;
+
         toolImage.enabled = false;
         toolColorOverlay.color = new Color(1, 1, 1, 0);
 
-        RunAnimationSequence(clickedButton.transform.position);
+        Transform finalTarget = (customPoint != null) ? customPoint : chestPoint;
+
+        RunAnimationSequence(clickedButton.transform.position, finalTarget);
     }
 
 
-    public void RunAnimationSequence(Vector3 colorPosition)
+    public void RunAnimationSequence(Vector3 colorPosition, Transform targetPoint)
     {
         Vector3 tipOffset = transform.position - tipAnchor.position;
         currentState = HandState.MovingToTool;
@@ -102,7 +110,7 @@ public class HandController : MonoBehaviour
             AddDippingStep(s, colorPosition, tipOffset);
         }
 
-        AddMoveToChestStep(s);
+        AddMoveToChestStep(s, targetPoint);
     }
 
 
@@ -151,9 +159,9 @@ public class HandController : MonoBehaviour
     }
 
 
-    private void AddMoveToChestStep(Sequence s)
+    private void AddMoveToChestStep(Sequence s, Transform targetPoint)
     {
-        s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
+        s.Append(transform.DOMove(targetPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
         s.OnComplete(() => currentState = HandState.Dragging);
     }
 
@@ -173,7 +181,6 @@ public class HandController : MonoBehaviour
     private void ReturnToChest()
     {
         currentState = HandState.Returning;
-        Vector3 tipOffset = transform.position - tipAnchor.position;
 
         transform.DOMove(chestPoint.position, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
@@ -205,5 +212,19 @@ public class HandController : MonoBehaviour
         {
             currentState = HandState.Idle;
         });
+    }
+
+
+    public void ResetHand()
+    {
+        DOTween.KillAll();
+
+        if (staticBookTool != null) staticBookTool.SetActive(true);
+
+        toolImage.enabled = false;
+        toolColorOverlay.color = new Color(1, 1, 1, 0);
+
+        transform.position = initialPosition;
+        currentState = HandState.Idle;
     }
 }
