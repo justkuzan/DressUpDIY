@@ -12,6 +12,7 @@ public class HandController : MonoBehaviour
     private Vector3 dragDelta;
     private bool isDragging = false;
     private bool isOverFace = false;
+    private Vector3 initialPosition;
 
     private MakeupItemSO currentData;
 
@@ -19,9 +20,8 @@ public class HandController : MonoBehaviour
     public Image toolImage;
     public Image toolColorOverlay;
     public GameObject staticBookTool;
-    public RectTransform tipAnchor; // Сменили Transform на RectTransform
-    public RectTransform faceArea;  // Ссылка на объект FaceArea в Canvas
-    // public Transform tipAnchor;
+    public RectTransform tipAnchor;
+    public RectTransform faceArea;
     public Transform chestPoint;
     public CharacterFace characterFace;
 
@@ -39,6 +39,7 @@ public class HandController : MonoBehaviour
 
     void Start()
     {
+        initialPosition = transform.position;
         toolImage.enabled = false;
     }
 
@@ -46,6 +47,7 @@ public class HandController : MonoBehaviour
     public void StartSequence(MakeupItemSO data, Vector3 colorPosition)
     {
         if (staticBookTool != null) staticBookTool.SetActive(true);
+
         DOTween.KillAll();
 
         currentData = data;
@@ -65,6 +67,7 @@ public class HandController : MonoBehaviour
 
         Sequence s = DOTween.Sequence();
         s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
+
         s.AppendCallback(() =>
         {
             staticBookTool.SetActive(false);
@@ -72,6 +75,7 @@ public class HandController : MonoBehaviour
         });
 
         s.Append(transform.DOMove(colorPosition + tipOffset, flyToColorTime).SetEase(Ease.OutQuad));
+
         s.AppendCallback(() =>
         {
             toolColorOverlay.sprite = currentData.toolTipSprite;
@@ -80,7 +84,9 @@ public class HandController : MonoBehaviour
         });
 
         s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato, randomness: 0, snapping: false, fadeOut: true));
+
         s.Join(toolColorOverlay.DOFade(1f, shakeDuration).SetEase(Ease.Linear));
+
         s.AppendCallback(() =>
         {
             toolImage.sprite = currentData.toolTipSprite;
@@ -89,6 +95,7 @@ public class HandController : MonoBehaviour
         });
 
         s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
+
         s.OnComplete(() =>
         {
             currentState = HandState.Dragging;
@@ -128,10 +135,10 @@ public class HandController : MonoBehaviour
     {
         currentState = HandState.Applying;
 
-        transform.DOShakePosition(1.0f, 20f, 15).OnComplete(() =>
+        transform.DOShakePosition(1f, 15.0f, 6).OnComplete(() =>
         {
             characterFace.ApplyMakeup(currentData);
-            ReturnToChest();
+            FinishAndHide();
         });
     }
 
@@ -147,17 +154,28 @@ public class HandController : MonoBehaviour
         });
     }
 
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void FinishAndHide()
     {
-        if (other.CompareTag("Face")) isOverFace = true;
+        currentState = HandState.Returning;
+
+        Sequence s = DOTween.Sequence();
+
+        s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
+
+        s.AppendCallback(() =>
+        {
+            staticBookTool.SetActive(true);
+            toolImage.enabled = false;
+            toolColorOverlay.color = new Color(1, 1, 1, 0);
+        });
+
+        s.AppendInterval(0.15f);
+
+        s.Append(transform.DOMove(initialPosition, flyToToolTime).SetEase(Ease.OutQuad));
+
+        s.OnComplete(() =>
+        {
+            currentState = HandState.Idle;
+        });
     }
-
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Face")) isOverFace = false;
-    }
-
-
 }
