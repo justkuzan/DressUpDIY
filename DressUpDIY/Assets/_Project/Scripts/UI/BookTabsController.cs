@@ -12,6 +12,7 @@ public class BookTabsController : MonoBehaviour
         public Sprite activeSprite;
         public Sprite inactiveSprite;
         public GameObject pageObject;
+        public GameObject staticBrushForThisPage;
     }
 
     public List<TabMapping> tabs;
@@ -33,6 +34,11 @@ public class BookTabsController : MonoBehaviour
             {
                 tab.tabImage.sprite = tab.activeSprite;
                 tab.pageObject.SetActive(true);
+
+                if (HandController.Instance != null && tab.staticBrushForThisPage != null)
+                {
+                    HandController.Instance.staticBookTool = tab.staticBrushForThisPage;
+                }
             }
             else
             {

@@ -135,7 +135,7 @@ public class HandController : MonoBehaviour
     {
         currentState = HandState.Applying;
 
-        transform.DOShakePosition(1f, 15.0f, 6).OnComplete(() =>
+        transform.DOShakePosition(1f, 20.0f, 8).OnComplete(() =>
         {
             characterFace.ApplyMakeup(currentData);
             FinishAndHide();
