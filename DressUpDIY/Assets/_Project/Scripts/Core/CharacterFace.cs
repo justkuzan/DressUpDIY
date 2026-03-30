@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class CharacterFace : MonoBehaviour
 {
@@ -10,25 +11,41 @@ public class CharacterFace : MonoBehaviour
     [Header("Special Layers")]
     public GameObject acneLayer;
 
+
+    void Start()
+    {
+        ResetMakeup();
+        if (acneLayer != null) acneLayer.SetActive(true);
+    }
+
     public void ApplyMakeup(MakeupItemSO data)
     {
+        SpriteRenderer currentRenderer = null;
+
         switch (data.type)
         {
             case MakeupItemSO.MakeupType.Lipstick:
-                lipstick.sprite = data.faceResultSprite;
+                currentRenderer = lipstick;
                 break;
             case MakeupItemSO.MakeupType.Blush:
-                blush.sprite = data.faceResultSprite;
+                currentRenderer = blush;
                 break;
             case MakeupItemSO.MakeupType.Eyeshadow:
-                eyeshadow.sprite = data.faceResultSprite;
+                currentRenderer = eyeshadow;
                 break;
             case MakeupItemSO.MakeupType.Cream:
-                if (acneLayer != null)
-                    acneLayer.SetActive(false);
+                if (acneLayer != null) acneLayer.SetActive(false);
                 break;
         }
+
+        if (currentRenderer != null)
+        {
+            currentRenderer.sprite = data.faceResultSprite;
+            currentRenderer.color = new Color(1, 1, 1, 0);
+            currentRenderer.DOFade(1f, 0.5f);
+        }
     }
+
 
     public void CleanAll()
     {
@@ -38,4 +55,12 @@ public class CharacterFace : MonoBehaviour
         blush.sprite = null;
         eyeshadow.sprite = null;
     }
+
+    public void ResetMakeup()
+    {
+        if (lipstick != null) { lipstick.sprite = null; lipstick.color = new Color(1, 1, 1, 0); }
+        if (blush != null) { blush.sprite = null; blush.color = new Color(1, 1, 1, 0); }
+        if (eyeshadow != null) { eyeshadow.sprite = null; eyeshadow.color = new Color(1, 1, 1, 0); }
+    }
+
 }

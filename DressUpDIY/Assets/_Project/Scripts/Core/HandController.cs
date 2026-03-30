@@ -9,15 +9,21 @@ public class HandController : MonoBehaviour
     public enum HandState { Idle, MovingToTool, Dipping, Dragging, Applying, Returning }
     public HandState currentState = HandState.Idle;
 
-    public Vector3 dragOffset = new Vector3(0, 150, 0);
+    private Vector3 dragDelta;
     private bool isDragging = false;
+    private bool isOverFace = false;
+
+    private MakeupItemSO currentData;
 
     [Header("References")]
     public Image toolImage;
     public Image toolColorOverlay;
     public GameObject staticBookTool;
-    public Transform tipAnchor;
+    public RectTransform tipAnchor; // Сменили Transform на RectTransform
+    public RectTransform faceArea;  // Ссылка на объект FaceArea в Canvas
+    // public Transform tipAnchor;
     public Transform chestPoint;
+    public CharacterFace characterFace;
 
     [Header("Animation Settings")]
     public float flyToToolTime = 0.5f;    // Time to fly to the brush in the book
@@ -27,29 +33,29 @@ public class HandController : MonoBehaviour
     public int shakeVibrato = 12;         // Shake frequency (vibrations per second)
     public float flyToChestTime = 0.5f;   // Time to move the hand back to the "idle" chest position
 
-    private RectTransform rectTransform;
-    private MakeupItemSO currentData;
 
     void Awake() => Instance = this;
 
+
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
         toolImage.enabled = false;
     }
 
+
     public void StartSequence(MakeupItemSO data, Vector3 colorPosition)
     {
+        if (staticBookTool != null) staticBookTool.SetActive(true);
         DOTween.KillAll();
 
         currentData = data;
-
         toolImage.sprite = data.cleanToolSprite;
         toolImage.SetNativeSize();
         toolImage.enabled = false;
 
         RunAnimationSequence(colorPosition);
     }
+
 
     public void RunAnimationSequence(Vector3 colorPosition)
     {
@@ -58,9 +64,7 @@ public class HandController : MonoBehaviour
         currentState = HandState.MovingToTool;
 
         Sequence s = DOTween.Sequence();
-
         s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
-
         s.AppendCallback(() =>
         {
             staticBookTool.SetActive(false);
@@ -68,7 +72,6 @@ public class HandController : MonoBehaviour
         });
 
         s.Append(transform.DOMove(colorPosition + tipOffset, flyToColorTime).SetEase(Ease.OutQuad));
-
         s.AppendCallback(() =>
         {
             toolColorOverlay.sprite = currentData.toolTipSprite;
@@ -78,7 +81,6 @@ public class HandController : MonoBehaviour
 
         s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato, randomness: 0, snapping: false, fadeOut: true));
         s.Join(toolColorOverlay.DOFade(1f, shakeDuration).SetEase(Ease.Linear));
-
         s.AppendCallback(() =>
         {
             toolImage.sprite = currentData.toolTipSprite;
@@ -87,12 +89,12 @@ public class HandController : MonoBehaviour
         });
 
         s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
-
         s.OnComplete(() =>
         {
             currentState = HandState.Dragging;
         });
     }
+
 
     void Update()
     {
@@ -102,19 +104,60 @@ public class HandController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 isDragging = true;
+                dragDelta = transform.position - Input.mousePosition;
             }
 
             if (Input.GetMouseButtonUp(0))
             {
                 isDragging = false;
-                // Тут мы позже проверим: над лицом мы или нет
+                if (isOverFace) StartApplying();
+                else ReturnToChest();
             }
 
             if (isDragging)
             {
-                transform.position = Input.mousePosition + dragOffset;
+                transform.position = Input.mousePosition + dragDelta;
+                isOverFace = RectTransformUtility.RectangleContainsScreenPoint(faceArea, tipAnchor.position);
             }
         }
 
     }
+
+
+    private void StartApplying()
+    {
+        currentState = HandState.Applying;
+
+        transform.DOShakePosition(1.0f, 20f, 15).OnComplete(() =>
+        {
+            characterFace.ApplyMakeup(currentData);
+            ReturnToChest();
+        });
+    }
+
+
+    private void ReturnToChest()
+    {
+        currentState = HandState.Returning;
+        Vector3 tipOffset = transform.position - tipAnchor.position;
+
+        transform.DOMove(chestPoint.position, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
+        {
+            currentState = HandState.Dragging;
+        });
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Face")) isOverFace = true;
+    }
+
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Face")) isOverFace = false;
+    }
+
+
 }

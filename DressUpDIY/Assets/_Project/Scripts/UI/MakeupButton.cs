@@ -6,6 +6,7 @@ public class MakeupButton : MonoBehaviour
     public MakeupItemSO itemData;
     private Image myImage;
 
+
     void Start()
     {
         myImage = GetComponent<Image>();
@@ -15,6 +16,7 @@ public class MakeupButton : MonoBehaviour
             myImage.sprite = itemData.spriteIcon;
         }
     }
+
 
     public void HandleClick()
     {
