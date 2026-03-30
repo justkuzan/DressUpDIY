@@ -9,4 +9,5 @@ public class MakeupItemSO : ScriptableObject
     public Sprite faceResultSprite;
     public Sprite cleanToolSprite;
     public Sprite toolTipSprite;
+    public bool skipDipping;
 }

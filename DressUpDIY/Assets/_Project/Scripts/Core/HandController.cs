@@ -44,68 +44,8 @@ public class HandController : MonoBehaviour
     }
 
 
-    public void StartSequence(MakeupItemSO data, Vector3 colorPosition)
-    {
-        if (staticBookTool != null) staticBookTool.SetActive(true);
-
-        DOTween.KillAll();
-
-        currentData = data;
-        toolImage.sprite = data.cleanToolSprite;
-        toolImage.SetNativeSize();
-        toolImage.enabled = false;
-
-        RunAnimationSequence(colorPosition);
-    }
-
-
-    public void RunAnimationSequence(Vector3 colorPosition)
-    {
-        Vector3 tipOffset = transform.position - tipAnchor.position;
-
-        currentState = HandState.MovingToTool;
-
-        Sequence s = DOTween.Sequence();
-        s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
-
-        s.AppendCallback(() =>
-        {
-            staticBookTool.SetActive(false);
-            toolImage.enabled = true;
-        });
-
-        s.Append(transform.DOMove(colorPosition + tipOffset, flyToColorTime).SetEase(Ease.OutQuad));
-
-        s.AppendCallback(() =>
-        {
-            toolColorOverlay.sprite = currentData.toolTipSprite;
-            toolColorOverlay.SetNativeSize();
-            toolColorOverlay.color = new Color(1, 1, 1, 0);
-        });
-
-        s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato, randomness: 0, snapping: false, fadeOut: true));
-
-        s.Join(toolColorOverlay.DOFade(1f, shakeDuration).SetEase(Ease.Linear));
-
-        s.AppendCallback(() =>
-        {
-            toolImage.sprite = currentData.toolTipSprite;
-            toolImage.SetNativeSize();
-            currentState = HandState.Dipping;
-        });
-
-        s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
-
-        s.OnComplete(() =>
-        {
-            currentState = HandState.Dragging;
-        });
-    }
-
-
     void Update()
     {
-        Debug.Log(currentState);
         if (currentState == HandState.Dragging)
         {
             if (Input.GetMouseButtonDown(0))
@@ -127,7 +67,94 @@ public class HandController : MonoBehaviour
                 isOverFace = RectTransformUtility.RectangleContainsScreenPoint(faceArea, tipAnchor.position);
             }
         }
+    }
 
+
+    public void StartSequence(MakeupItemSO data, GameObject clickedButton)
+    {
+        if (staticBookTool != null) staticBookTool.SetActive(true);
+
+        DOTween.KillAll();
+        currentData = data;
+
+        if (staticBookTool == null) staticBookTool = clickedButton;
+
+        toolImage.sprite = data.cleanToolSprite;
+        toolImage.SetNativeSize();
+        toolImage.enabled = false;
+        toolColorOverlay.color = new Color(1, 1, 1, 0);
+
+        RunAnimationSequence(clickedButton.transform.position);
+    }
+
+
+    public void RunAnimationSequence(Vector3 colorPosition)
+    {
+        Vector3 tipOffset = transform.position - tipAnchor.position;
+        currentState = HandState.MovingToTool;
+
+        Sequence s = DOTween.Sequence();
+
+        AddPickupStep(s);
+
+        if (!currentData.skipDipping)
+        {
+            AddDippingStep(s, colorPosition, tipOffset);
+        }
+
+        AddMoveToChestStep(s);
+    }
+
+
+    private void AddPickupStep(Sequence s)
+    {
+        s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
+        s.AppendCallback(() =>
+        {
+            if (currentData.skipDipping)
+            {
+                RectTransform bookRect = staticBookTool.GetComponent<RectTransform>();
+                if (bookRect != null)
+                {
+                    toolImage.rectTransform.sizeDelta = bookRect.sizeDelta;
+                }
+
+                toolImage.sprite = currentData.toolTipSprite;
+            }
+            else
+            {
+                toolImage.SetNativeSize();
+            }
+
+            staticBookTool.SetActive(false);
+            toolImage.enabled = true;
+        });
+    }
+
+
+    private void AddDippingStep(Sequence s, Vector3 colorPos, Vector3 offset)
+    {
+        s.Append(transform.DOMove(colorPos + offset, flyToColorTime).SetEase(Ease.OutQuad));
+        s.AppendCallback(() =>
+        {
+            toolColorOverlay.sprite = currentData.toolTipSprite;
+            toolColorOverlay.SetNativeSize();
+            toolColorOverlay.color = new Color(1, 1, 1, 0);
+        });
+        s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato, randomness: 0, fadeOut: true));
+        s.Join(toolColorOverlay.DOFade(1f, shakeDuration).SetEase(Ease.Linear));
+        s.AppendCallback(() =>
+        {
+            toolImage.sprite = currentData.toolTipSprite;
+            toolImage.SetNativeSize();
+        });
+    }
+
+
+    private void AddMoveToChestStep(Sequence s)
+    {
+        s.Append(transform.DOMove(chestPoint.position, flyToChestTime).SetEase(Ease.OutCubic));
+        s.OnComplete(() => currentState = HandState.Dragging);
     }
 
 
@@ -153,6 +180,7 @@ public class HandController : MonoBehaviour
             currentState = HandState.Dragging;
         });
     }
+
 
     private void FinishAndHide()
     {

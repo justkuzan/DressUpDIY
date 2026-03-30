@@ -35,7 +35,7 @@ public class BookTabsController : MonoBehaviour
                 tab.tabImage.sprite = tab.activeSprite;
                 tab.pageObject.SetActive(true);
 
-                if (HandController.Instance != null && tab.staticBrushForThisPage != null)
+                if (HandController.Instance != null)
                 {
                     HandController.Instance.staticBookTool = tab.staticBrushForThisPage;
                 }
