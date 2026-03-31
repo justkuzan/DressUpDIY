@@ -73,7 +73,6 @@ public class HandController : MonoBehaviour
     public void StartSequence(MakeupItemSO data, GameObject clickedButton, Transform customPoint)
     {
         if (staticBookTool != null) staticBookTool.SetActive(true);
-
         DOTween.KillAll();
         currentData = data;
 
@@ -83,15 +82,13 @@ public class HandController : MonoBehaviour
         }
 
         toolImage.sprite = data.cleanToolSprite;
+        toolImage.enabled = false;
+        toolColorOverlay.color = new Color(1, 1, 1, 0);
 
         RectTransform clickedRect = clickedButton.GetComponent<RectTransform>();
         if (clickedRect != null) toolImage.rectTransform.sizeDelta = clickedRect.sizeDelta;
 
-        toolImage.enabled = false;
-        toolColorOverlay.color = new Color(1, 1, 1, 0);
-
         Transform finalTarget = (customPoint != null) ? customPoint : chestPoint;
-
         RunAnimationSequence(clickedButton.transform.position, finalTarget);
     }
 
@@ -102,7 +99,6 @@ public class HandController : MonoBehaviour
         currentState = HandState.MovingToTool;
 
         Sequence s = DOTween.Sequence();
-
         AddPickupStep(s);
 
         if (!currentData.skipDipping)
@@ -122,11 +118,7 @@ public class HandController : MonoBehaviour
             if (currentData.skipDipping)
             {
                 RectTransform bookRect = staticBookTool.GetComponent<RectTransform>();
-                if (bookRect != null)
-                {
-                    toolImage.rectTransform.sizeDelta = bookRect.sizeDelta;
-                }
-
+                if (bookRect != null) toolImage.rectTransform.sizeDelta = bookRect.sizeDelta;
                 toolImage.sprite = currentData.toolTipSprite;
             }
             else
@@ -149,8 +141,10 @@ public class HandController : MonoBehaviour
             toolColorOverlay.SetNativeSize();
             toolColorOverlay.color = new Color(1, 1, 1, 0);
         });
+
         s.Append(transform.DOShakePosition(shakeDuration, shakeStrength, shakeVibrato, randomness: 0, fadeOut: true));
         s.Join(toolColorOverlay.DOFade(1f, shakeDuration).SetEase(Ease.Linear));
+
         s.AppendCallback(() =>
         {
             toolImage.sprite = currentData.toolTipSprite;
@@ -181,7 +175,6 @@ public class HandController : MonoBehaviour
     private void ReturnToChest()
     {
         currentState = HandState.Returning;
-
         transform.DOMove(chestPoint.position, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             currentState = HandState.Dragging;
@@ -192,11 +185,9 @@ public class HandController : MonoBehaviour
     private void FinishAndHide()
     {
         currentState = HandState.Returning;
-
         Sequence s = DOTween.Sequence();
 
         s.Append(transform.DOMove(staticBookTool.transform.position, flyToToolTime).SetEase(Ease.OutQuad));
-
         s.AppendCallback(() =>
         {
             staticBookTool.SetActive(true);
@@ -205,9 +196,7 @@ public class HandController : MonoBehaviour
         });
 
         s.AppendInterval(0.15f);
-
         s.Append(transform.DOMove(initialPosition, flyToToolTime).SetEase(Ease.OutQuad));
-
         s.OnComplete(() =>
         {
             currentState = HandState.Idle;
@@ -218,12 +207,10 @@ public class HandController : MonoBehaviour
     public void ResetHand()
     {
         DOTween.KillAll();
-
         if (staticBookTool != null) staticBookTool.SetActive(true);
 
         toolImage.enabled = false;
         toolColorOverlay.color = new Color(1, 1, 1, 0);
-
         transform.position = initialPosition;
         currentState = HandState.Idle;
     }

@@ -50,17 +50,23 @@ public class CharacterFace : MonoBehaviour
     public void CleanAll()
     {
         if (acneLayer != null) acneLayer.SetActive(true);
-
-        lipstick.sprite = null;
-        blush.sprite = null;
-        eyeshadow.sprite = null;
+        ResetMakeup();
     }
 
     public void ResetMakeup()
     {
-        if (lipstick != null) { lipstick.sprite = null; lipstick.color = new Color(1, 1, 1, 0); }
-        if (blush != null) { blush.sprite = null; blush.color = new Color(1, 1, 1, 0); }
-        if (eyeshadow != null) { eyeshadow.sprite = null; eyeshadow.color = new Color(1, 1, 1, 0); }
+        ResetSlot(lipstick);
+        ResetSlot(blush);
+        ResetSlot(eyeshadow);
+    }
+
+    private void ResetSlot(SpriteRenderer slot)
+    {
+        if (slot != null)
+        {
+            slot.sprite = null;
+            slot.color = new Color(1, 1, 1, 0);
+        }
     }
 
 }
