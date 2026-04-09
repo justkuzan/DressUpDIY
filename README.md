@@ -1,6 +1,6 @@
 # 💄 Dress Up DIY — Makeup Mechanic
 
-> Test assignment completed for **Playnera** (Junior Unity Developer position, March 2026).
+> Test assignment completed (Unity Developer position, March 2026).
 > Fully implemented makeup interaction system for a mobile dress-up game — cream, eyeshadow, lipstick, blush, and a reset sponge.
 
 ![Gameplay demo](demo.gif)
